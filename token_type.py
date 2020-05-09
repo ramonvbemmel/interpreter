@@ -8,7 +8,7 @@ class Token:
         self.line: int = line
 
     def __str__(self):
-        return 'Token:  Type: '+repr(self.type).upper()+',\tValue: '+repr(self.value)+',\tLine: '+repr(self.line)+''
+        return '{Token:  Type: '+repr(self.type).upper()+',\tValue: '+repr(self.value)+',\tLine: '+repr(self.line)+'}'
     __repr__ = __str__
 
 operators= {}
