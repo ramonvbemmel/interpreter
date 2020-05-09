@@ -1,5 +1,5 @@
 import token_type as token
-from typing import List, Callable
+from typing import List
 import re
 
 #read lines from file and put them in a list.
@@ -12,64 +12,51 @@ def split_on_space(lines: List[str])->List[str]:
         return re.split('(\W)', lines[0])
     else:
         head, *tail = lines
-        return re.split('(\W)', head) + split_on_space(tail)     
+        return re.split('(\W)', head) + split_on_space(tail)
 
 #removes whitespaces and empty strings out of list
 def remove_empty_str(words: List[str])-> List[str]:
     if ' ' in words:
         words.remove(' ')
-        if ' ' in words:
-            return remove_empty_str(words)
+        return remove_empty_str(words)
     if '' in words:
         words.remove('')
-        if '' in words:
-            return remove_empty_str(words)
+        return remove_empty_str(words)
     return words
 
-keywords = {'getal', 'zin', 'voor', 'als', 'anders', 'zolang', '='}
-
+#Returns a list of token objects. Conaining Type, value and line number.
 def get_token(words: List[str], line: int=1)-> List[token.Token]:
+    keywords = {'getal', 'zin', 'voor', 'als', 'anders', 'zolang', '='}
     head, *tail = words
     if len(words) ==1:
         if head.isdigit():
-            return [token.Token('int', head, line)]
+            return [token.Token('INT', head, line)]
         elif head =='\n':
             return get_token(tail,line+1)
         elif head in keywords:
-            return [token.Token('keyword', head, line)]
+            return [token.Token('KEYWORD', head, line)]
         elif '\"' in head:
-            return [token.Token('string',head, line)]
+            return [token.Token('STRING',head, line)]
         else:
-            return token.Token[('id', head, line)]
+            return token.Token[('ID', head, line)]
     else:
         if head.isdigit():
-            return [token.Token('int', head, line)] + get_token(tail)
+            return [token.Token('INT', head, line)] + get_token(tail,line)
         elif head =='\n':
             return get_token(tail,line+1)
         elif head in keywords:
-            return [token.Token('keyword', head, line)] + get_token(tail)
+            return [token.Token('KEYWORD', head, line)] + get_token(tail,line)
         elif head == '\"':
             end_str=tail.index('"')
-            tmp=(str(','.join(tail[:end_str])))
-            complete= remove_comma(tmp)
+            joined_list=(str(' '.join(tail[:end_str])))
             if len(tail[end_str+1:])== 0:
-                return [token.Token('string',complete, line)]
-            return [token.Token('string',complete, line)] + get_token(tail[end_str+1:])
+                return [token.Token('STRING',joined_list, line)]
+            return [token.Token('STRING',joined_list, line)] + get_token(tail[end_str+1:],line)
         else:
-            return [token.Token('id', head, line)] + get_token(tail)
-
-
-def remove_comma(string: str)-> str:
-    if ',' in string:
-        return remove_comma(string.replace(',', ' '))
-    else:
-        return string
+            return [token.Token('ID', head, line)] + get_token(tail,line)
 
 
 
-# print(remove_list_chars(str("hallo '[],")))
-
-print(get_keyword_string_from_file("source.txt"))
 with_space=split_on_space(get_keyword_string_from_file('source.txt'))
 print(with_space)
 print(get_token(remove_empty_str(with_space)))
