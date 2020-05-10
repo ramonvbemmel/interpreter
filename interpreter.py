@@ -4,7 +4,8 @@ from typing import List
 from operators import *
 from program_state import program_stat
 
-
+# function to evaluate math operations. usable for first and second predence.
+# With the second parameter a list of first or second operators
 def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
     op_index = list(i for i, x in enumerate(tokens) if x.value in op_to_check)
     if len(op_index)==0:
@@ -26,6 +27,7 @@ def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
         tokens.pop(head)
         return operator_calc(tokens,op_to_check)
 
+# function to handle assign operations
 def operate_assigns(tokens: List[Token])->List[Token]:
     op_index = list(i for i, x in enumerate(tokens) if x.value in ['='])
     if len(op_index)==0:
@@ -46,7 +48,7 @@ def operate_assigns(tokens: List[Token])->List[Token]:
         return operate_assigns(tokens)
 
 
-
+# function to print
 def evaluate_print(tokens: List[Token]):
     if len(tokens)==1:
         return
@@ -58,6 +60,7 @@ def evaluate_print(tokens: List[Token]):
             print(tail[0].value)
     return evaluate_print(tail)
 
+# runs the interperter
 def interper(list_of_tokens: List[List[Token]], index:int=0):
     first = operator_calc(list_of_tokens[index], first_operators)
     #print(first)
@@ -72,4 +75,5 @@ def interper(list_of_tokens: List[List[Token]], index:int=0):
         return interper(list_of_tokens,index+1)
 
 mylist=run_tokenizer("source.txt")
+print(all_operators)
 interper(mylist)

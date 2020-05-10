@@ -1,6 +1,7 @@
 from token_type import Token
 from typing import List
 from re import split
+from operators import all_operators
 
 #read lines from file and put them in a list.
 def get_keyword_string_from_file(filename: str)->List[str]:
@@ -36,7 +37,7 @@ def get_token(words: List[str], line: int=1  )-> List[Token]:
             return [Token("END_OF_FILE","EOF",line)]
         elif head in keywords:
             return [Token('KEYWORD', head, line)]
-        elif head in operators:
+        elif head in all_operators:
             return [Token('OPERATOR', head,line)]
         elif '"' in head:
             return [Token('STRING',head, line)]
@@ -64,6 +65,7 @@ def get_token(words: List[str], line: int=1  )-> List[Token]:
         #else:
             #exception
 
+#put all the tokens in a 2d matrix
 def get_2d_list(tokens: List[Token],complete: List[List]=[],line_num=1)-> List[List[Token]]:
     if len(tokens)==0:
         return complete
@@ -72,6 +74,7 @@ def get_2d_list(tokens: List[Token],complete: List[List]=[],line_num=1)-> List[L
         complete.append(list(filter(lambda x: x.line == line_num,tokens)))
         return get_2d_list(not_used_yet, complete,line_num+1)
 
+#run all the tokenize functions at once
 def run_tokenizer(filename: str)->List[List[Token]]:
     with_space=split_on_space(get_keyword_string_from_file(filename))
     #print(with_space)

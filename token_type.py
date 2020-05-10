@@ -10,5 +10,3 @@ class Token:
     def __str__(self):
         return '{Token:  Type: '+repr(self.type).upper()+',\tValue: '+repr(self.value)+',\tLine: '+repr(self.line)+'}'
     __repr__ = __str__
-
-operators= {}
