@@ -25,16 +25,19 @@ def remove_empty_str(words: List[str])-> List[str]:
     return words
 
 #Returns a list of token objects. Conaining Type, value and line number.
-def get_token(words: List[str], line: int=1)-> List[Token]:
-    keywords = {'getal', 'zin', 'voor', 'als', 'anders', 'zolang', '='}
+def get_token(words: List[str], line: int=1  )-> List[Token]:
+    keywords = {'getal', 'zin', 'voor', 'als', 'anders', 'zolang'}
+    operators = {'+', ':', '*', '-', '='}
     head, *tail = words
     if len(words) ==1:
         if head.isdigit():
             return [Token('INT', head, line)]
         elif head =='\n':
-            return get_token(tail,line+1)
+            return [Token("END_OF_FILE","EOF",line)]
         elif head in keywords:
             return [Token('KEYWORD', head, line)]
+        elif head in operators:
+            return [Token('OPERATOR', head,line)]
         elif '"' in head:
             return [Token('STRING',head, line)]
         elif head.isalpha():
@@ -48,6 +51,8 @@ def get_token(words: List[str], line: int=1)-> List[Token]:
             return get_token(tail,line+1)
         elif head in keywords:
             return [Token('KEYWORD', head, line)] + get_token(tail,line)
+        elif head in operators:
+            return [Token('OPERATOR',head,line)] + get_token(tail,line)
         elif head == '"':
             end_str=tail.index('"')
             joined_list=(str(' '.join(tail[:end_str])))
@@ -58,13 +63,18 @@ def get_token(words: List[str], line: int=1)-> List[Token]:
             return [Token('ID', head, line)] + get_token(tail,line)
         #else:
             #exception
+def get_2d_list(tokens: List[Token],complete: List[List]=[],line_num=1)-> List[List[Token]]:
+    if len(tokens)==0:
+        return complete
+    else:
+        not_used_yet = list(filter(lambda x: x.line != line_num,tokens))
+        complete.append(list(filter(lambda x: x.line == line_num,tokens)))
+        return get_2d_list(not_used_yet, complete,line_num+1)
 
-
-#print(get_keyword_string_from_file('source.txt'))
-
-with_space=split_on_space(get_keyword_string_from_file('source.txt'))
-#print(with_space)
-print(get_token(remove_empty_str(with_space)))
+def run_tokenizer(filename: str)->List[List[Token]]:
+    with_space=split_on_space(get_keyword_string_from_file(filename))
+    #print(with_space)
+    return get_2d_list(get_token(remove_empty_str(with_space)))
 
 
 
