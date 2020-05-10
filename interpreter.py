@@ -26,13 +26,13 @@ def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
         tokens.pop(head)
         return operator_calc(tokens,op_to_check)
 
-def operate_assigns(tokens: List[Token]):
+def operate_assigns(tokens: List[Token])->List[Token]:
     op_index = list(i for i, x in enumerate(tokens) if x.value in ['='])
     if len(op_index)==0:
         return tokens
     head, *tail = op_index
     identifer = str(tokens[head-1].value)
-    rhs = int(tokens[head+1].value)
+    rhs = tokens[head+1].value
 
     if len(op_index)==1:
         program_stat[identifer]= rhs
@@ -45,12 +45,31 @@ def operate_assigns(tokens: List[Token]):
         tokens.pop(head)
         return operate_assigns(tokens)
 
+
+
+def evaluate_print(tokens: List[Token]):
+    if len(tokens)==1:
+        return
+    head, *tail = tokens
+    if head.type == "KEYWORD" and str(head.value)== 'toon':
+        if tail[0].type== "ID":
+            print(program_stat[tail[0].value])
+        else:
+            print(tail[0].value)
+    return evaluate_print(tail)
+
+def interper(list_of_tokens: List[List[Token]], index:int=0):
+    first = operator_calc(list_of_tokens[index], first_operators)
+    #print(first)
+    second = operator_calc(first, second_operators)
+    #print(second)
+    assigned = operate_assigns(second)
+    #print(assigned)
+    evaluate_print(assigned)
+    if index >= len(list_of_tokens)-1:
+        return
+    else:
+        return interper(list_of_tokens,index+1)
+
 mylist=run_tokenizer("source.txt")
-print((mylist[0]))
-print(operate_assigns(operator_calc(operator_calc(mylist[0],first_operators),second_operators)))
-print(program_stat['i'])
-
-
-
-
-
+interper(mylist)
