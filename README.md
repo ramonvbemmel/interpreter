@@ -26,6 +26,13 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 | plus| + | 
 |min|-| 
 |deel| /|
+|groter| > | 
+|kleiner| <| 
+|groterOfgelijk| >=| 
+|kleinerOfgelijk| =<|
+|gelijk| ==| 
+|nietGelijk| !=| 
+
 
 
 
