@@ -1,14 +1,14 @@
 import operator
-first_operators=['*',':']
-second_operators= ['+','-']
+first_operators=['maal','deel']
+second_operators= ['plus','min']
 all_operators= first_operators + second_operators
 
 #used to get the write operator
 get_operator= {
-    '*' : operator.mul,
-    ':' : operator.truediv,
-    '+' : operator.add,
-    '-' : operator.sub,
+    'maal' : operator.mul,
+    'deel' : operator.truediv,
+    'plus' : operator.add,
+    'min' : operator.sub,
 
 
 

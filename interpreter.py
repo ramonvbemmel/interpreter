@@ -29,7 +29,7 @@ def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
 
 # function to handle assign operations
 def operate_assigns(tokens: List[Token])->List[Token]:
-    op_index = list(i for i, x in enumerate(tokens) if x.value in ['='])
+    op_index = list(i for i, x in enumerate(tokens) if x.value in ['is'])
     if len(op_index)==0:
         return tokens
     head, *tail = op_index
@@ -73,7 +73,3 @@ def interper(list_of_tokens: List[List[Token]], index:int=0):
         return
     else:
         return interper(list_of_tokens,index+1)
-
-mylist=run_tokenizer("source.txt")
-print(all_operators)
-interper(mylist)

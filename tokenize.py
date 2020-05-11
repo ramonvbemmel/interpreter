@@ -28,7 +28,7 @@ def remove_empty_str(words: List[str])-> List[str]:
 #Returns a list of token objects. Conaining Type, value and line number.
 def get_token(words: List[str], line: int=1  )-> List[Token]:
     keywords = {'getal', 'zin', 'voor', 'als', 'anders', 'toon'}
-    operators = {'+', ':', '*', '-', '='}
+    operators = {'plus', 'deel', 'maal', 'min', 'is'}
     head, *tail = words
     if len(words) ==1:
         if head.isdigit():

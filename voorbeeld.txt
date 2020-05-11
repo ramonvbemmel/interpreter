@@ -1,9 +1,8 @@
-getal i = 10*4 plus 1
-getal test = 20 + 5
-i = 0
+i is 10 maal 4 plus 1
+test is 20
+i is 0 plus 5
 toon i
-zin a = "hallo"
-zin b = "doeihjhjhhjjjjjjjjjjjjjjjjjjjjjj   667   jhjhjhj"
-a= 88
-toon a
+a is "hallo world"
+b is "Test string"
+a is 88
 toon b
