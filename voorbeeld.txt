@@ -1,8 +1,13 @@
-i is 10 maal 4 plus 1
-test is 20
-i is 0 plus 5
-toon i
-a is "hallo world"
-b is "Test string"
-a is 88
-toon b
+twee is 2
+toon twee plus twee
+uitkomst is twee plus twee
+toon uitkomst
+toon " "
+toon 10 plus 10
+toon 10 gelijk 9
+toon 10 groter 9
+toon 10 kleiner 9
+toon " "
+toon twee gelijk twee
+toon "hello world"
+toon 10 maal 10 deel 2 plus 9

@@ -17,7 +17,4 @@ get_operator= {
     'gelijk': operator.eq,
     'nietGelijk': operator.ne,
 
-
-
-
 }
