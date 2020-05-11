@@ -24,40 +24,25 @@ def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
     else:
         rhs = tokens[head+1].value
 
+    # voor numeric operatons the type has to be int.
     if tokens[head].value in first_operators or tokens[head].value in second_operators:
         lhs = int(lhs)
         rhs = int(rhs)
 
-    if tokens[head].value in first_operators or tokens[head].value in second_operators:
-        if len(op_index)==1:
-            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
-            print(tokens[head].type)
-            tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
-            tokens.pop(head-1)
-            tokens.pop(head)
-            return tokens
-        else:
-            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
-            print(tokens[head].type)
-            tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
-            tokens.pop(head-1)
-            tokens.pop(head)
-            return operator_calc(tokens,op_to_check)
-    elif tokens[head].value in bin_operators:
-        if len(op_index)==1:
-            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
-            print(tokens[head].type)
-            tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
-            tokens.pop(head-1)
-            tokens.pop(head)
-            return tokens
-        else:
-            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
-            print(tokens[head].type)
-            tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
-            tokens.pop(head-1)
-            tokens.pop(head)
-            return operator_calc(tokens,op_to_check)
+    if len(op_index)==1:
+        tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
+        print(tokens[head].type)
+        tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
+        tokens.pop(head-1)
+        tokens.pop(head)
+        return tokens
+    else:
+        tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
+        print(tokens[head].type)
+        tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
+        tokens.pop(head-1)
+        tokens.pop(head)
+        return operator_calc(tokens,op_to_check)
 
 
 # function to handle assign operations
