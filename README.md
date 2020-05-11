@@ -19,7 +19,7 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 
 |syntax Rampthon  |python syntax  |
 |--|--|
-|toon "print dit"  | print()  |
+|toon <variable of string>  | print()  |
 | is | = | 
 |""| ''|
 |maal| * | 
