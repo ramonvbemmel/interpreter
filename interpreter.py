@@ -13,39 +13,48 @@ def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
         return tokens
     head, *tail = op_index
 
-    
+    #check if a var is passed so the value comes from programstate
     if tokens[head-1].type == 'ID':
         lhs = program_stat[tokens[head-1].value]
     else:
         lhs = tokens[head-1].value
-
+    # check if a var is passed so the value comes from programstate
     if tokens[head - 1].type == 'ID':
         rhs = program_stat[tokens[head + 1].value]
     else:
         rhs = tokens[head+1].value
+
+    if tokens[head].value in first_operators or tokens[head].value in second_operators:
+        lhs = int(lhs)
+        rhs = int(rhs)
+
     if tokens[head].value in first_operators or tokens[head].value in second_operators:
         if len(op_index)==1:
-            tokens[head].type= 'INT'
+            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
+            print(tokens[head].type)
             tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
             tokens.pop(head-1)
             tokens.pop(head)
             return tokens
         else:
-            tokens[head].type= 'INT'
+            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
+            print(tokens[head].type)
             tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
             tokens.pop(head-1)
             tokens.pop(head)
             return operator_calc(tokens,op_to_check)
     elif tokens[head].value in bin_operators:
         if len(op_index)==1:
-            tokens[head].type= 'BOOL'
-            tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
+            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
+            print(tokens[head].type)
+            tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
             tokens.pop(head-1)
             tokens.pop(head)
             return tokens
         else:
-            tokens[head].type= 'BOOL'
-            tokens[head].value= get_operator[tokens[head].value](bool(lhs),bool(rhs))
+            tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
+            print(tokens[head].type)
+            tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
             tokens.pop(head-1)
             tokens.pop(head)
             return operator_calc(tokens,op_to_check)
