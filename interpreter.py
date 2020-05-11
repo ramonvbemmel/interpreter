@@ -31,14 +31,12 @@ def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
 
     if len(op_index)==1:
         tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
-        print(tokens[head].type)
         tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
         tokens.pop(head-1)
         tokens.pop(head)
         return tokens
     else:
         tokens[head].type= str(type(get_operator[tokens[head].value](lhs,rhs))).upper().strip("<CLASS> ")
-        print(tokens[head].type)
         tokens[head].value= get_operator[tokens[head].value](lhs,rhs)
         tokens.pop(head-1)
         tokens.pop(head)
