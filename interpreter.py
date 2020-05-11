@@ -50,9 +50,10 @@ def operate_assigns(tokens: List[Token])->List[Token]:
 
 # function to print
 def evaluate_print(tokens: List[Token]):
-    if len(tokens)==1:
+    if len(tokens)<1:
         return
     head, *tail = tokens
+    #print(head.type, head.value)
     if head.type == "KEYWORD" and str(head.value)== 'toon':
         if tail[0].type== "ID":
             print(program_stat[tail[0].value])
