@@ -8,24 +8,48 @@ from program_state import program_stat
 # With the second parameter a list of first or second operators
 def operator_calc(tokens: List[Token],op_to_check:List[str])->List[Token]:
     op_index = list(i for i, x in enumerate(tokens) if x.value in op_to_check)
+
     if len(op_index)==0:
         return tokens
     head, *tail = op_index
-    lhs = int(tokens[head-1].value)
-    rhs = int(tokens[head+1].value)
 
-    if len(op_index)==1:
-        tokens[head].type= 'INT'
-        tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
-        tokens.pop(head-1)
-        tokens.pop(head)
-        return tokens
+    
+    if tokens[head-1].type == 'ID':
+        lhs = program_stat[tokens[head-1].value]
     else:
-        tokens[head].type= 'INT'
-        tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
-        tokens.pop(head-1)
-        tokens.pop(head)
-        return operator_calc(tokens,op_to_check)
+        lhs = tokens[head-1].value
+
+    if tokens[head - 1].type == 'ID':
+        rhs = program_stat[tokens[head + 1].value]
+    else:
+        rhs = tokens[head+1].value
+    if tokens[head].value in first_operators or tokens[head].value in second_operators:
+        if len(op_index)==1:
+            tokens[head].type= 'INT'
+            tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
+            tokens.pop(head-1)
+            tokens.pop(head)
+            return tokens
+        else:
+            tokens[head].type= 'INT'
+            tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
+            tokens.pop(head-1)
+            tokens.pop(head)
+            return operator_calc(tokens,op_to_check)
+    elif tokens[head].value in bin_operators:
+        if len(op_index)==1:
+            tokens[head].type= 'BOOL'
+            tokens[head].value= get_operator[tokens[head].value](int(lhs),int(rhs))
+            tokens.pop(head-1)
+            tokens.pop(head)
+            return tokens
+        else:
+            tokens[head].type= 'BOOL'
+            tokens[head].value= get_operator[tokens[head].value](bool(lhs),bool(rhs))
+            tokens.pop(head-1)
+            tokens.pop(head)
+            return operator_calc(tokens,op_to_check)
+
 
 # function to handle assign operations
 def operate_assigns(tokens: List[Token])->List[Token]:
@@ -47,7 +71,6 @@ def operate_assigns(tokens: List[Token])->List[Token]:
         tokens.pop(head)
         return operate_assigns(tokens)
 
-
 # function to print
 def evaluate_print(tokens: List[Token]):
     if len(tokens)<1:
@@ -67,6 +90,7 @@ def interper(list_of_tokens: List[List[Token]], index:int=0):
     #print(first)
     second = operator_calc(first, second_operators)
     #print(second)
+    third= operator_calc(second,bin_operators)
     assigned = operate_assigns(second)
     #print(assigned)
     evaluate_print(assigned)
