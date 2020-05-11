@@ -15,7 +15,7 @@ In value word opgeslagen wat de waarde opgeslagen die ingelezen is.
 
 In de file operators.py staan operators gespecificeerd.  
 ## Hoe te gebruiken? 
-Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker zal hier om een source file gevraagd worden. Geef de naam van uw source file op (.txt)  wanneer de source file in de zelfde map als de main.py file staat anders geeft u het volledige path naar de file op (**gebruik forward slash /**). In de repo zit een voorbeeld.txt sourc file. 
+Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker zal hier om een source file gevraagd worden. Geef de naam van uw source file op (.txt)  wanneer de source file in de zelfde map als de main.py file staat anders geeft u het volledige path naar de file op (**gebruik forward slash /**). In de repo zit een voorbeeld.txt source file. 
 
 |syntax Rampthon  |python syntax  |
 |--|--|
