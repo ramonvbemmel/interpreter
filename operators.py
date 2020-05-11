@@ -1,7 +1,7 @@
 import operator
-first_operators=['maal','deel']
-second_operators= ['plus','min', 'groter']
-bin_operators= ['kleiner', 'groterOfgelijk', 'kleinerOfgelijk', 'gelijk', 'nietGelijk']
+first_operators=['maal','deel','plus','min', 'groter']
+second_operators= ['plus','min']
+bin_operators= ['groter','kleiner', 'groterOfgelijk', 'kleinerOfgelijk', 'gelijk', 'nietGelijk']
 all_operators= first_operators + second_operators + bin_operators
 
 #used to get the write operator
