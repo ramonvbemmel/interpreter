@@ -11,7 +11,7 @@ Het tokentype staat gespecificeert in token_type.py. Een token bevat: type, valu
 
 In value word opgeslagen wat de waarde opgeslagen die ingelezen is. 
 
-**[Interpreter.py:](https://github.com/ramonvbemmel/interpreter/blob/master/interpreter.py)  ** worden alle tokens afgegaan en waar nodig een bewerking uitgevoerd. Zo is het mogelijk om een wiskunde operatie uit te voeren of te printen doormiddel van het keyword `toon`.  Bij een assigment wordt de waarde opgeslagen in de program state. De programstate is een dict. Wanneer er bijvoorbeeld `i = 10` wordt ingegeven zal i met de waarde 10 opgeslagen worden in de dictionairy program state. Voor deze dictionairy is de file [program_state.py.](https://github.com/ramonvbemmel/interpreter/blob/master/program_state.py) 
+**[Interpreter.py:](https://github.com/ramonvbemmel/interpreter/blob/master/interpreter.py)  ** worden alle tokens afgegaan en waar nodig een bewerking uitgevoerd. Zo is het mogelijk om een wiskunde operatie uit te voeren of te printen doormiddel van het keyword `toon`.  Bij een assigment wordt de waarde opgeslagen in de program state. De programstate is een dict. Wanneer er bijvoorbeeld `i is 10` wordt ingegeven zal i met de waarde 10 opgeslagen worden in de dictionairy program state. Voor deze dictionairy is de file [program_state.py.](https://github.com/ramonvbemmel/interpreter/blob/master/program_state.py) 
 
 In de file operators.py staan operators gespecificeerd.  
 ## Hoe te gebruiken? 
