@@ -128,27 +128,39 @@ def find_jumps(tokens: List[Token]):
             return True
         else:
             return False
-    return
+    return None
 
 def get_index_keyword(tokens: List[Token], keyword:str):
         return tokens.index(next(filter(lambda x: x.value == keyword, tokens)))
 
 # runs the interperter
 def interper(list_of_tokens: List[List[Token]], index:int=0):
-    if  find_jumps(list_of_tokens[index]):
-        if index+2 < len(list_of_tokens):
-            first = list(map(lambda op: operator_calc(list_of_tokens[index+2], op), all_operators))
-            assigned = operate_assigns(first[-1])
-            evaluate_print(assigned)
-        else:
-            index= len(list_of_tokens)
-    else:
-        if index+1 < len(list_of_tokens):
-            first = list(map(lambda op: operator_calc(list_of_tokens[index+1], op), all_operators))
-            assigned = operate_assigns(first[-1])
-            evaluate_print(assigned)
-        else:
-            index = len(list_of_tokens)
+    jumped=find_jumps(list_of_tokens[index])
+    #statement was true and executed
+    if jumped==True:
+        #checks if there is no new statement then execute next line.
+        if index+1 < len(list_of_tokens) :
+            print("if was true")
+            #if anders presented skip the else.
+            if len(list_of_tokens[index+1]) > 0 and list_of_tokens[index+1][0].value == 'anders':
+                index+=1
+                print("index geplust")
+
+    #statement was false so line not executed.
+    elif jumped==False :
+        print("if niet uitgevoerd")
+        #when else of if else  is detected excute this
+        if index+1 < len(list_of_tokens) and len(list_of_tokens[index+1]) < 0  and list_of_tokens[index+1][0].value == 'anders':
+            print("verwijder anders ")
+            list_of_tokens[index + 1].pop(0)
+
+
+    #no if or else in line
+    elif jumped==None:
+        print("geen ifs gevonden")
+        first = list(map(lambda op: operator_calc(list_of_tokens[index], op), all_operators))
+        assigned = operate_assigns(first[-1])
+        evaluate_print(assigned)
 
     if index >= len(list_of_tokens)-1:
         return
