@@ -1,7 +1,7 @@
 from token_type import Token
 from typing import List
 from re import split
-from operators import all_operators
+from operators import all_operators, keywords
 
 #read lines from file and put them in a list.
 def get_keyword_string_from_file(filename: str)->List[str]:
@@ -27,7 +27,6 @@ def remove_empty_str(words: List[str])-> List[str]:
 
 #Returns a list of token objects. Conaining Type, value and line number.
 def get_token(words: List[str], line: int=1  )-> List[Token]:
-    keywords = ['getal', 'zin', 'voor', 'als', 'anders', 'toon']
     head, *tail = words
     if len(words) ==1:
         if head.isdigit():
