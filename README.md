@@ -32,9 +32,9 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 |kleinerOfgelijk| =<|
 |gelijk| ==| 
 |nietGelijk| !=| 
-| als <statement> einde_als | if (<statement>)|    (de uitvoer moet ook op dezelfde regel)  
+| als statement einde_als | if (<statement>)|    (de uitvoer moet ook op dezelfde regel)  
 | anders | else |   (de uit te voeren code moet op dezelfde regel) 
-| anders als <statement> eind_as| if else| 
+| anders als statement eind_as| if else| 
 
 
 
