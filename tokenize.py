@@ -30,37 +30,36 @@ def get_token(words: List[str], line: int=1  )-> List[Token]:
     head, *tail = words
     if len(words) ==1:
         if head.isdigit():
-            return [NumToken('INT', head, line)]
-            #return [Token('INT', head, line)]
+            return [NumToken(head, line)]
         elif head =='\n':
-            return [EofToken("END_OF_FILE","EOF",line)]
+            return [EofToken("EOF",line)]
         elif head in keywords:
-            return [KeyToken('KEYWORD', head, line)]
+            return [KeyToken(head, line)]
         elif head in all_operators:
-            return [OpToken('OPERATOR', head,line)]
+            return [OpToken(head,line)]
         elif '"' in head:
-            return [StrToken('STRING',head, line)]
+            return [StrToken(head, line)]
         elif head.isalpha():
-            return [IdToken('ID', head, line)]
+            return [IdToken(head, line)]
         #else:
             #exception
     else:
         if head.isdigit():
-            return [NumToken('INT', head, line)] + get_token(tail,line)
+            return [NumToken(head, line)] + get_token(tail,line)
         elif head =='\n':
             return get_token(tail,line+1)
         elif head in keywords:
-            return [KeyToken('KEYWORD', head, line)] + get_token(tail,line)
+            return [KeyToken(head, line)] + get_token(tail,line)
         elif head in all_operators:
-            return [OpToken('OPERATOR',head,line)] + get_token(tail,line)
+            return [OpToken(head,line)] + get_token(tail,line)
         elif head == '"':
             end_str=tail.index('"')
             joined_list=(str(' '.join(tail[:end_str])))
             if len(tail[end_str+1:])== 0:
-                return [StrToken('STRING',joined_list, line)]
-            return [StrToken('STRING',joined_list, line)] + get_token(tail[end_str+1:],line)
+                return [StrToken(joined_list, line)]
+            return [StrToken(joined_list, line)] + get_token(tail[end_str+1:],line)
         elif head.isalpha():
-            return [IdToken('ID', head, line)] + get_token(tail,line)
+            return [IdToken(head, line)] + get_token(tail,line)
         #else:
             #exception
 

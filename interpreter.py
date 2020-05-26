@@ -29,13 +29,13 @@ def operator_calc(tokens: List[Token],op_to_check:str)->List[Token]:
 
     if len(op_index) == 1:
         tmp_line= tokens[head].line
-        tokens[head]= ResultToken("RESULT",get_operator[tokens[head].value](lhs, rhs), tmp_line)
+        tokens[head]= ResultToken(get_operator[tokens[head].value](lhs, rhs), tmp_line)
         tokens.pop(head - 1)
         tokens.pop(head)
         return tokens
     else:
         tmp_line= tokens[head].line
-        tokens[head]= ResultToken("RESULT",get_operator[tokens[head].value](lhs, rhs), tmp_line)
+        tokens[head]= ResultToken(get_operator[tokens[head].value](lhs, rhs), tmp_line)
         tokens.pop(head - 1)
         tokens.pop(head)
         return operator_calc(tokens, op_to_check)
@@ -64,13 +64,13 @@ def operator_ifs(tokens: List[Token],op_to_check:List[str])->List[Token]:
 
     if len(op_index) == 1:
         tmp = tokens[head].line
-        tokens[head] = ResultToken("RESULT", get_operator[tokens[head].value](lhs, rhs), tmp)
+        tokens[head] = ResultToken(get_operator[tokens[head].value](lhs, rhs), tmp)
         tokens.pop(head - 1)
         tokens.pop(head)
         return tokens
     else:
         tmp = tokens[head].line
-        tokens[head] = ResultToken("RESULT", get_operator[tokens[head].value](lhs, rhs), tmp)
+        tokens[head] = ResultToken(get_operator[tokens[head].value](lhs, rhs), tmp)
         tokens.pop(head - 1)
         tokens.pop(head)
         return operator_ifs(tokens, op_to_check)
