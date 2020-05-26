@@ -32,6 +32,11 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 |kleinerOfgelijk| =<|
 |gelijk| ==| 
 |nietGelijk| !=| 
+| als statement einde_als | if (<statement>)|   
+| anders | else |  
+| anders als statement eind_as| if else| 
+ 
+ Voor alle als en anders statement geld dat de instructie en het statement op 1 regel moeten.
 
 
 
