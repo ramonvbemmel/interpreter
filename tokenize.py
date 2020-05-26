@@ -1,4 +1,4 @@
-from token_type import Token
+from token_type import *
 from typing import List
 from re import split
 from operators import all_operators, keywords
@@ -30,36 +30,37 @@ def get_token(words: List[str], line: int=1  )-> List[Token]:
     head, *tail = words
     if len(words) ==1:
         if head.isdigit():
-            return [Token('INT', head, line)]
+            return [NumToken('INT', head, line)]
+            #return [Token('INT', head, line)]
         elif head =='\n':
-            return [Token("END_OF_FILE","EOF",line)]
+            return [EofToken("END_OF_FILE","EOF",line)]
         elif head in keywords:
-            return [Token('KEYWORD', head, line)]
+            return [KeyToken('KEYWORD', head, line)]
         elif head in all_operators:
-            return [Token('OPERATOR', head,line)]
+            return [OpToken('OPERATOR', head,line)]
         elif '"' in head:
-            return [Token('STRING',head, line)]
+            return [StrToken('STRING',head, line)]
         elif head.isalpha():
-            return [Token('ID', head, line)]
+            return [IdToken('ID', head, line)]
         #else:
             #exception
     else:
         if head.isdigit():
-            return [Token('INT', head, line)] + get_token(tail,line)
+            return [NumToken('INT', head, line)] + get_token(tail,line)
         elif head =='\n':
             return get_token(tail,line+1)
         elif head in keywords:
-            return [Token('KEYWORD', head, line)] + get_token(tail,line)
+            return [KeyToken('KEYWORD', head, line)] + get_token(tail,line)
         elif head in all_operators:
-            return [Token('OPERATOR',head,line)] + get_token(tail,line)
+            return [OpToken('OPERATOR',head,line)] + get_token(tail,line)
         elif head == '"':
             end_str=tail.index('"')
             joined_list=(str(' '.join(tail[:end_str])))
             if len(tail[end_str+1:])== 0:
-                return [Token('STRING',joined_list, line)]
-            return [Token('STRING',joined_list, line)] + get_token(tail[end_str+1:],line)
+                return [StrToken('STRING',joined_list, line)]
+            return [StrToken('STRING',joined_list, line)] + get_token(tail[end_str+1:],line)
         elif head.isalpha():
-            return [Token('ID', head, line)] + get_token(tail,line)
+            return [IdToken('ID', head, line)] + get_token(tail,line)
         #else:
             #exception
 
