@@ -54,7 +54,7 @@ class EofToken(Token):
     __repr__ = __str__
     
 class ResultToken(Token):
-    def __init__(self, value:str, line):
+    def __init__(self, value, line):
         super().__init__(value,line)
     def __str__(self):
         return '{RESULT: '+ repr(self.value) + ',\tLine: ' + repr(self.line) + '}'

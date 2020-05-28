@@ -77,22 +77,37 @@ def operator_ifs(tokens: List[Token],op_to_check:List[str])->List[Token]:
 
 # function to handle assign operations
 def operate_assigns(tokens: List[Token])->List[Token]:
-    op_index = list(i for i, x in enumerate(tokens) if x.value in ['is'])
-    if len(op_index)==0:
+    assign_index = list(i for i, x in enumerate(tokens) if x.value in ['is'])
+    result_index = list(filter(lambda x: isinstance(x,ResultToken),tokens))
+#    print(len(result_index))
+    if len(assign_index)==0:
         return tokens
-    head, *tail = op_index
+    head, *tail = assign_index
     identifer = str(tokens[head-1].value)
     rhs = tokens[head+1].value
 
-    if len(op_index)==1:
-        program_stat[identifer]= rhs
-        tokens.pop(head)
-        tokens.pop(head)
+    if len(assign_index)==1:
+        if len(result_index) !=0:
+            #print("IF")
+            program_stat[identifer] = result_index[0].value
+            program_stat[identifer] = rhs
+        else:
+            #print("ELSE")
+            program_stat[identifer]= rhs
+        # tokens.pop(head)
+        # tokens.pop(head)
+        #print("voor return")
         return tokens
     else:
-        program_stat[identifer]= rhs
-        tokens.pop(head)
-        tokens.pop(head)
+        if len(result_index) != 0:
+            #print("if")
+            program_stat[identifer] = result_index[0].value
+        else:
+            #print("andere else")
+            program_stat[identifer]= rhs
+        # tokens.pop(head)
+        # tokens.pop(head)
+        print("return")
         return operate_assigns(tokens)
 
 # function to print
@@ -100,7 +115,7 @@ def evaluate_print(tokens: List[Token]):
     if len(tokens)<1:
         return
     head, *tail = tokens
-    if isinstance(head,KeyToken) and str(head.value)== 'toon':
+    if str(head.value)== 'toon':
         if isinstance(tail[0], IdToken) :
             print(program_stat[tail[0].value])
         else:
@@ -131,6 +146,8 @@ def find_jumps(tokens: List[Token]):
             return False
     return None
 
+# def find_loops(tokens: List[Token]):
+#     if
 
 
 # runs the interperter
