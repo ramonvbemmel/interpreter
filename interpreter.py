@@ -17,8 +17,8 @@ def operator_calc(tokens: List[Token],op_to_check:str)->List[Token]:
     else:
         lhs = tokens[head - 1].value
     # check if a var is passed so the value comes from programstate
-    if isinstance(tokens[head - 1], IdToken):
-        rhs = program_stat[tokens[head - 1].value]
+    if isinstance(tokens[head + 1], IdToken):
+        rhs = program_stat[tokens[head + 1].value]
     else:
         rhs = tokens[head + 1].value
 
@@ -77,37 +77,22 @@ def operator_ifs(tokens: List[Token],op_to_check:List[str])->List[Token]:
 
 # function to handle assign operations
 def operate_assigns(tokens: List[Token])->List[Token]:
-    assign_index = list(i for i, x in enumerate(tokens) if x.value in ['is'])
-    result_index = list(filter(lambda x: isinstance(x,ResultToken),tokens))
-#    print(len(result_index))
-    if len(assign_index)==0:
+    op_index = list(i for i, x in enumerate(tokens) if x.value in ['is'])
+    if len(op_index)==0:
         return tokens
-    head, *tail = assign_index
+    head, *tail = op_index
     identifer = str(tokens[head-1].value)
     rhs = tokens[head+1].value
 
-    if len(assign_index)==1:
-        if len(result_index) !=0:
-            #print("IF")
-            program_stat[identifer] = result_index[0].value
-            program_stat[identifer] = rhs
-        else:
-            #print("ELSE")
-            program_stat[identifer]= rhs
-        # tokens.pop(head)
-        # tokens.pop(head)
-        #print("voor return")
+    if len(op_index)==1:
+        program_stat[identifer]= rhs
+        tokens.pop(head)
+        tokens.pop(head)
         return tokens
     else:
-        if len(result_index) != 0:
-            #print("if")
-            program_stat[identifer] = result_index[0].value
-        else:
-            #print("andere else")
-            program_stat[identifer]= rhs
-        # tokens.pop(head)
-        # tokens.pop(head)
-        print("return")
+        program_stat[identifer]= rhs
+        tokens.pop(head)
+        tokens.pop(head)
         return operate_assigns(tokens)
 
 # function to print
@@ -115,7 +100,7 @@ def evaluate_print(tokens: List[Token]):
     if len(tokens)<1:
         return
     head, *tail = tokens
-    if str(head.value)== 'toon':
+    if isinstance(head,KeyToken) and str(head.value)== 'toon':
         if isinstance(tail[0], IdToken) :
             print(program_stat[tail[0].value])
         else:
@@ -134,24 +119,52 @@ def get_index_keyword(tokens: List[Token], keyword: str):
 
 def find_jumps(tokens: List[Token]):
 
-    if len(tokens) != 0 and isinstance(tokens[0], KeyToken) and tokens[0].value == 'als':
+    if len(tokens) != 0  and tokens[0].value == 'als':
         end_statement= get_index_keyword(tokens,'eind_als')
         result = operator_ifs(list(tokens[1:end_statement]), bin_operators)
         if  result[0].value == True:
-            first = list(map(lambda op: operator_calc(tokens[end_statement+1:], op), all_operators))
-            second=operate_assigns(first[-1])
+            first = list(map(lambda op: operator_calc(tokens[end_statement+1:], op), first_operators +second_operators))
+            second=operate_assigns(first[-2])
             evaluate_print(second)
             return True
         else:
             return False
     return None
 
-# def find_loops(tokens: List[Token]):
-#     if
+def evaluate_loop_statement(tokens: List[Token]):
+    if isinstance(tokens[0],IdToken):
+        lhs = program_stat[tokens[0].value]
+    else:
+        lhs = tokens[0].value
+    if isinstance(tokens[2],IdToken):
+        rhs = program_stat[tokens[2].value]
+    else:
+        rhs=  tokens[2].value
+    return get_operator[tokens[1].value](int(lhs),int(rhs))
+
+def find_loop(tokens: List):
+
+    if len(tokens) != 0  and tokens[0].value == 'zolang':
+        end_statement= get_index_keyword(tokens,'eind_zolang')
+        result= evaluate_loop_statement(tokens[1:end_statement])
+        if  result == True:
+            first = list(map(lambda op: operator_calc(tokens[end_statement+1:], op), first_operators +second_operators))
+            second=operate_assigns(first[-2])
+            evaluate_print(second)
+            return True
+        else:
+            return False
+    return None
 
 
 # runs the interperter
 def interper(list_of_tokens: List[List[Token]], index:int=0):
+    loop_state = find_loop(list(list_of_tokens[index]))
+    if loop_state == True:
+        return interper(list_of_tokens, index)
+    elif loop_state == False:
+        return interper(list_of_tokens, index+1)
+
     jumped=find_jumps(list_of_tokens[index])
     #statement was true and executed
     if jumped==True:
