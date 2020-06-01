@@ -1,13 +1,6 @@
-twee is 2
-toon twee plus twee
-uitkomst is twee plus twee
-toon uitkomst
-toon " "
-toon 10 plus 10
-toon 10 gelijk 9
-toon 10 groter 9
-toon 10 kleiner 9
-toon " "
-toon twee gelijk twee
-toon "hello world"
-toon 10 maal 10 deel 2 plus 9
+i is 0
+zolang i kleiner 10 eind_zolang i is i plus 1 toon i
+toon i
+toon "test"
+toon 100 plus 10 deel 2
+

@@ -3,6 +3,7 @@ from token_type import *
 from typing import List
 from operators import *
 from program_state import program_stat
+from function_call_counter import function_call_counter
 
 # function to evaluate math operations. The operator is passed in the second parameter.
 def operator_calc(tokens: List[Token],op_to_check:str)->List[Token]:
@@ -131,7 +132,10 @@ def find_jumps(tokens: List[Token]):
             return False
     return None
 
+@function_call_counter
 def evaluate_loop_statement(tokens: List[Token]):
+    if len(tokens)==1:
+        return bool(tokens[0].value)
     if isinstance(tokens[0],IdToken):
         lhs = program_stat[tokens[0].value]
     else:
@@ -146,6 +150,7 @@ def find_loop(tokens: List):
 
     if len(tokens) != 0  and tokens[0].value == 'zolang':
         end_statement= get_index_keyword(tokens,'eind_zolang')
+
         result= evaluate_loop_statement(tokens[1:end_statement])
         if  result == True:
             first = list(map(lambda op: operator_calc(tokens[end_statement+1:], op), first_operators +second_operators))
