@@ -1,3 +1,4 @@
+
 # Rampthon interpreter
 Dit is een nederlandse versie van python/C. Dit is gemaakt als opdracht voor mijn opleiding technische informatica aan de hu.  Voor de opdracht moest de interpreter geheel functioneel zijn. 
 #### Werking interpreter. 
@@ -34,16 +35,22 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 |nietGelijk| !=| 
 | als statement einde_als | if (<statement>)|   
 | anders | else |  
-| anders als <biair statement> eind_as| if else| 
-| zolang <binair statement> eind_zolang | while | 
+| anders als \<binair statement> eind_als| if else| 
+| zolang \<binair statement> eind_zolang | while | 
  
  Voor de laatste 4 rijen geld dat de instructie en het statement op 1 regel moet.
+# Voorbeelden: 
+### While. 
+while loop die 10 keer uitgevoerd wordt met i als counter. 
 
+    i is 0 
+    zolang i kleiner 10 eind_zolang i is i plus 1
+### if / else statement.
+If statement waarin wordt gekeken of de variabele `getal` kleiner is dan 2. 
+Als dit het geval is wort er *True* geprint anders *False*. 
 
+    getal is 1 
+    als getal kleiner 2 eind_als toon "True"
+    anders toon "False"
 
-
-
-
-
-
-
+Na uitvoer zal er in dit geval dus True geprint worden in de console. 
