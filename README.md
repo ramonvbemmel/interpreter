@@ -38,7 +38,7 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 | anders als \<statement> eind_als| if else| 
 | zolang \<statement> eind_zolang | while | 
  
- Voor de laatste 4 rijen geld dat de instructie en het statement op 1 regel moet.
+ Voor de laatste 4 rijen in de tabel geld dat de instructie en het statement op 1 regel moet.
 # Voorbeelden: 
 ### While. 
 while loop die 10 keer uitgevoerd wordt met i als counter. 
