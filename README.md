@@ -33,10 +33,10 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 |kleinerOfgelijk| =<|
 |gelijk| ==| 
 |nietGelijk| !=| 
-| als statement einde_als | if (<statement>)|   
+| als \<statement> einde_als | if (<statement>)|   
 | anders | else |  
-| anders als \<binair statement> eind_als| if else| 
-| zolang \<binair statement> eind_zolang | while | 
+| anders als \<statement> eind_als| if else| 
+| zolang \<statement> eind_zolang | while | 
  
  Voor de laatste 4 rijen geld dat de instructie en het statement op 1 regel moet.
 # Voorbeelden: 
