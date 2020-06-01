@@ -34,9 +34,10 @@ Door de file main.py uit te voeren wordt de interpreter gestart. De gebruiker za
 |nietGelijk| !=| 
 | als statement einde_als | if (<statement>)|   
 | anders | else |  
-| anders als statement eind_as| if else| 
+| anders als <biair statement> eind_as| if else| 
+| zolang <binair statement> eind_zolang | while | 
  
- Voor alle als en anders statement geld dat de instructie en het statement op 1 regel moeten.
+ Voor de laatste 4 rijen geld dat de instructie en het statement op 1 regel moet.
 
 
 
